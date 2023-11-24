@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['mantine', 'plugin:@next/next/recommended', 'plugin:jest/recommended'],
-  plugins: ['testing-library', 'jest'],
+  plugins: ['testing-library', 'jest', 'simple-import-sort'],
   overrides: [
     {
       files: ['**/?(*.)+(spec|test).[jt]s?(x)'],
@@ -16,6 +16,15 @@ module.exports = {
     'indent': ['error', 2],
     'semi': ['error', 'never'],
     '@typescript-eslint/semi': ['error', 'never'],
-    'object-curly-spacing': ['error', 'always']
+    'object-curly-spacing': ['error', 'always'],
+    "simple-import-sort/imports": ["error", {
+      groups: [
+        ["^react"],
+        ["^antd"],
+        ["^@?\\w"],
+        ["@/(.*)"],
+        ["^[./]"]
+      ]
+    }],
   },
 };
