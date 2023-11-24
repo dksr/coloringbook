@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core'
 
-import { theme } from '../theme'
+import { theme } from '@/theme'
 
 import '@mantine/core/styles.css'
 
