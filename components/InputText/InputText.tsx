@@ -2,14 +2,35 @@
 
 import { useState } from 'react'
 
-import { Button, Flex, Textarea } from '@mantine/core'
+import { Button, Flex, Loader, Text, Textarea } from '@mantine/core'
 
 const InputText = () => {
   const [inputValue, setInputValue] = useState('')
+  const [chatGptResponse, setChatGptResponse] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = () => {
-    // Обработка значения inputValue
-    console.log(inputValue)
+  const handleSubmit = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: inputValue }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+
+      const data = await response.json()
+      setChatGptResponse(data.reply)
+    } catch (error) {
+      console.error('Ошибка при получении ответа от ChatGPT:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -28,7 +49,9 @@ const InputText = () => {
         onChange={(event) => setInputValue(event.currentTarget.value)}
         placeholder="Введите текст"
       />
-      <Button onClick={handleSubmit}>Отправить</Button>
+      <Button variant="gradient" gradient={{ from: 'pink', to: 'yellow' }} onClick={handleSubmit}>Отправить</Button>
+      {isLoading && <Loader />}
+      {chatGptResponse && <Text>{chatGptResponse}</Text>}
     </Flex>
   )
 }
