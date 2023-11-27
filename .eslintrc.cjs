@@ -14,6 +14,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/extensions': 'off',
     'indent': ['error', 2],
+    'linebreak-style': ["error", "unix"],
     'semi': ['error', 'never'],
     '@typescript-eslint/semi': ['error', 'never'],
     'object-curly-spacing': ['error', 'always'],
